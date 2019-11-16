@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- 整合文件 -->
+	<!-- mapper代理对象配置 -->
+	<import resource="spring-mapper.xml"/>
+	<!-- service注解配置 -->
+	<import resource="spring-service.xml"/>
+	<!-- 事务管理器配置 -->
+	<import resource="spring-transaction.xml"/>
+</beans>
