@@ -3,5 +3,37 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.codeless.stumsgdemo.mapper.ManagerMapper">
+	<!-- 根据账号密码登录 -->
+	<select id="selByUp" parameterType="managerVo" resultType="managerVo">
+		select * from manager
+		where username=#{username} and
+		psd=#{psd}
+	</select>
 
+	<!-- 查看所有学生信息 -->
+	<select id="selAll" resultType="studentVo">
+		select * from student
+	</select>
+
+	<!-- 根据id或者名字查询学生信息 -->
+	<select id="selByIdName" parameterType="studentVo" resultType="studentVo">
+		select * from student
+		<where>
+			<if test=" stuno!=0 and sname==null ">
+				stuno=#{stuno}
+			</if>
+			<if test="stuno==0 and sname!=null">
+				sname=#{sname}
+			</if>
+			<if test="stuno!=0 and sname!=null">
+				stuno=#{stuno} and sname=#{sname}
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据ID删除学生信息 -->
+	<delete id="delById" parameterType="int">
+		delete from student where
+		stuno=#{stuno}
+	</delete>
 </mapper>

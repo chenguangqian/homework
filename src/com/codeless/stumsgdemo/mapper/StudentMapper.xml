@@ -3,8 +3,46 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.codeless.stumsgdemo.mapper.StudentMapper">
+	<!-- 根据账号密码登录 -->
 	<select id="selByUp" parameterType="studentVo" resultType="studentVo">
-	 select 
+		select * from student
+		where username=#{username} and
+		psd=#{psd}
 	</select>
 
+	<!-- 根据账号名查看学生信息 -->
+	<select id="selByUname" parameterType="java.lang.String"
+		resultType="studentVo">
+		select * from student
+		where username=#{username}
+	</select>
+
+	<!-- 根据账号名修改姓名或者年龄或者联系方式 -->
+	<update id="updById" parameterType="studentVo">
+		update student
+		<set>
+			<if test="sname!=null and age==0 and tele==0 ">
+				sname=#{sname},
+			</if>
+			<if test="age!=0 and sname==null and tele==0 ">
+				age=#{age},
+			</if>
+			<if test="tele!=0 and age==0 and sname==null ">
+				tele=#{tele},
+			</if>
+			<if test="sname!=null and age !=0 and tele==0 ">
+				sname=#{sname},age=#{age},
+			</if>
+			<if test="sname!=null and tele !=0 and age==0 ">
+				sname=#{sname},tele=#{tele},
+			</if>
+			<if test="age!=0 and sname==null and tele !=0 ">
+				age=#{age},tele=#{tele},
+			</if>
+			<if test="sname!=null and age !=0 and tele !=0 ">
+				sname=#{sname},age=#{age},tele=#{tele}
+			</if>
+		</set>
+		where username=#{username}
+	</update>
 </mapper>
